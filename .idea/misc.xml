@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/souzaemerson/AndroidStudioProjects/MyMangaList/app/src/main/res/layout/manga_container.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/souzaemerson/AndroidStudioProjects/MyMangaList/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/souzaemerson/AndroidStudioProjects/MyMangaList/app/src/main/res/layout/manga_container.xml" value="0.33" />
       </map>
     </option>
   </component>
