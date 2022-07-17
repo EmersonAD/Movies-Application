@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.souzaemerson.mymangalist.core.state.status.Status
 import com.souzaemerson.mymangalist.data.model.anime.Data
-import com.souzaemerson.mymangalist.data.network.AnimeService
-import com.souzaemerson.mymangalist.data.network.MovieService
+import com.souzaemerson.mymangalist.data.network.retrofit.AnimeService
 import com.souzaemerson.mymangalist.data.repository.anime.AnimeRepository
 import com.souzaemerson.mymangalist.data.repository.anime.AnimeRepositoryImpl
 import com.souzaemerson.mymangalist.databinding.FragmentAnimesBinding

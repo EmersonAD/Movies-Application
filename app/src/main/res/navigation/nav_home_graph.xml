@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.souzaemerson.mymangalist.view.fragment.DetailsFragment"
+        android:name="com.souzaemerson.mymangalist.view.fragment.detail.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" />
     <fragment
