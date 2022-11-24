@@ -1,4 +1,4 @@
-package com.souzaemerson.mymangalist.view.fragment.home.viewmodel
+package com.souzaemerson.mymangalist.ui.fragment.movie.viewmodel
 
 import androidx.lifecycle.*
 import com.souzaemerson.mymangalist.core.state.State

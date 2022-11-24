@@ -1,4 +1,4 @@
-package com.souzaemerson.mymangalist.view.fragment.detail
+package com.souzaemerson.mymangalist.ui.fragment.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater

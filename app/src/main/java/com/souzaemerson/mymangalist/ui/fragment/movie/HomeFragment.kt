@@ -1,4 +1,4 @@
-package com.souzaemerson.mymangalist.view.fragment.home
+package com.souzaemerson.mymangalist.ui.fragment.movie
 
 import android.os.Bundle
 import android.util.Log
@@ -15,12 +15,12 @@ import com.souzaemerson.mymangalist.const.KEY_MOVIE
 import com.souzaemerson.mymangalist.const.LANGUAGE
 import com.souzaemerson.mymangalist.core.state.status.Status
 import com.souzaemerson.mymangalist.data.model.movie.Result
-import com.souzaemerson.mymangalist.data.network.retrofit.MovieService
+import com.souzaemerson.mymangalist.data.network.retrofit.RetrofitService
 import com.souzaemerson.mymangalist.data.repository.movie.MovieRepository
 import com.souzaemerson.mymangalist.data.repository.movie.MovieRepositoryImpl
 import com.souzaemerson.mymangalist.databinding.FragmentHomeBinding
-import com.souzaemerson.mymangalist.view.fragment.home.adapter.MovieAdapter
-import com.souzaemerson.mymangalist.view.fragment.home.viewmodel.HomeViewModel
+import com.souzaemerson.mymangalist.ui.fragment.movie.adapter.MovieAdapter
+import com.souzaemerson.mymangalist.ui.fragment.movie.viewmodel.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 
 class HomeFragment : Fragment() {
@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        repository = MovieRepositoryImpl(MovieService.service)
+        repository = MovieRepositoryImpl(RetrofitService.service)
         viewModel = HomeViewModel.HomeViewModelProviderFactory(repository, Dispatchers.IO)
             .create(HomeViewModel::class.java)
 
@@ -62,37 +62,6 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).setSupportActionBar(binding.movieToolbar)
         (activity as AppCompatActivity).supportActionBar?.title = "Movies"
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_search, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-        paginationSetup(menu)
-        previous(menu)
-    }
-
-    private fun paginationSetup(menu: Menu) {
-        val next = menu.findItem(R.id.menu_next)
-        val previous = menu.findItem(R.id.menu_previous)
-
-        next.setOnMenuItemClickListener {
-            if (page>=1){
-                page += 1
-                getPopularMovies(page = page)
-            }
-            return@setOnMenuItemClickListener false
-        }
-        previous.setOnMenuItemClickListener {
-            if (page>=2){
-                page -= 1
-                getPopularMovies(page)
-            }
-            return@setOnMenuItemClickListener false
-        }
-    }
-
-    private fun previous(menu: Menu) {
-
     }
 
     private fun observeVMEvents() {
