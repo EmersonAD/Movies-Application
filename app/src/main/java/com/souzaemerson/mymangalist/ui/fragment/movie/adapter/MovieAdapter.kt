@@ -32,11 +32,11 @@ class MovieAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bindView(movie: Result) {
             binding.run {
-                val popularityRate = "Popularity: ${movie.popularity.toInt()}"
-                itemTitle.text = movie.title
-                itemDescription.text = movie.overview
+                val initPath = "https://image.tmdb.org/t/p/w500"
+                val popularityRate = "Pop: ${movie.popularity.toInt()}"
+                itemTvTitle.text = movie.title
                 itemReleaseDate.text = popularityRate
-                itemImagem.load("https://image.tmdb.org/t/p/original/${movie.poster_path}")
+                itemImagem.load(initPath.plus(movie.poster_path))
             }
             itemView.setOnClickListener {
                 itemClick.invoke(movie)

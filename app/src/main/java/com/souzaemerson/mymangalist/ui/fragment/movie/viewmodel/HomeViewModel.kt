@@ -1,6 +1,7 @@
 package com.souzaemerson.mymangalist.ui.fragment.movie.viewmodel
 
 import androidx.lifecycle.*
+import androidx.recyclerview.widget.RecyclerView
 import com.souzaemerson.mymangalist.core.state.State
 import com.souzaemerson.mymangalist.data.model.movie.MovieResponse
 import com.souzaemerson.mymangalist.data.repository.movie.MovieRepository
@@ -10,12 +11,11 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val repository: MovieRepository,
-    private val ioDispatcher: CoroutineDispatcher
+    private val ioDispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
     private val _response = MutableLiveData<State<MovieResponse>>()
     val response: LiveData<State<MovieResponse>> = _response
-
 
     fun getPopularMovies(apikey: String, language: String, page: Int) {
         viewModelScope.launch {

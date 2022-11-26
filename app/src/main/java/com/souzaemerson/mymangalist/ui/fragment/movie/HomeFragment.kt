@@ -2,13 +2,15 @@ package com.souzaemerson.mymangalist.ui.fragment.movie
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.souzaemerson.mymangalist.R
 import com.souzaemerson.mymangalist.const.API_KEY
 import com.souzaemerson.mymangalist.const.KEY_MOVIE
@@ -48,7 +50,6 @@ class HomeFragment : Fragment() {
             .create(HomeViewModel::class.java)
 
         getPopularMovies()
-        setupToolbar()
         observeVMEvents()
     }
 
@@ -58,28 +59,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupToolbar() {
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity).setSupportActionBar(binding.movieToolbar)
-        (activity as AppCompatActivity).supportActionBar?.title = "Movies"
-    }
-
     private fun observeVMEvents() {
         viewModel.response.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@observe
             when (it.status) {
                 Status.SUCCESS -> {
-                    it.data?.let { response ->
-                        Toast.makeText(requireContext(), "Sucesso", Toast.LENGTH_SHORT).show()
-                        setRecycler(response.results)
-                    }
+                    it.data?.let { response -> setRecycler(response.results) }
                 }
-                Status.LOADING -> {
-                    Log.i("Loading", "observeVMEvents: ${it.loading.toString()} ")
-                }
-                Status.ERROR -> {
-                    Log.e("Error", "observeVMEvents: ${it.error}")
-                }
+                Status.LOADING -> {}
+                Status.ERROR -> {}
             }
         }
     }
