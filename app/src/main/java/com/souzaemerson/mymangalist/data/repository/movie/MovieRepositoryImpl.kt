@@ -7,5 +7,4 @@ class MovieRepositoryImpl(private val api: Service) : MovieRepository {
     override suspend fun getPopularMovies(apikey: String, language: String, page: Int): MovieResponse {
         return api.getPopularMovies(apikey, language, page)
     }
-
 }

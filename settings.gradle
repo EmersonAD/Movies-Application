@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MyMangaList"
 include ':app'
+include ':core'
+include ':ui'
