@@ -36,7 +36,7 @@ class MovieAdapter(
                 val popularityRate = "Pop: ${movie.popularity.toInt()}"
                 itemTvTitle.text = movie.title
                 itemReleaseDate.text = popularityRate
-                itemImagem.load(initPath.plus(movie.poster_path))
+                itemImage.load(initPath.plus(movie.poster_path))
             }
             itemView.setOnClickListener {
                 itemClick.invoke(movie)
