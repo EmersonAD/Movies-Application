@@ -1,10 +1,11 @@
 package com.souzaemerson.mymangalist.domain.mapper
 
 import com.souzaemerson.mymangalist.data.model.movie.Result
+import java.io.Serializable
 
 class TransformResultIntoDomain {
     companion object {
-        fun modifier(results: List<Result>): List<ResultDomain> {
+        operator fun invoke(results: List<Result>): List<ResultDomain> {
             return results.map { result: Result ->
                 ResultDomain(
                     id = result.id,
@@ -32,4 +33,4 @@ data class ResultDomain(
     val release_date: String,
     val vote_average: Double,
     val popularity: Double
-)
+): Serializable

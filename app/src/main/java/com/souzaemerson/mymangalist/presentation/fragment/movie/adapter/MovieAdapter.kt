@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.souzaemerson.mymangalist.data.model.movie.Result
 import com.souzaemerson.mymangalist.databinding.ItemMangaBinding
+import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 
 class MovieAdapter(
-    private val moviesList: List<Result>,
-    private val itemClick: ((item: Result) -> Unit)
+    private val moviesList: List<ResultDomain>,
+    private val itemClick: ((item: ResultDomain) -> Unit)
 ) : RecyclerView.Adapter<MovieAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -27,10 +27,10 @@ class MovieAdapter(
 
     class MyViewHolder(
         private val binding: ItemMangaBinding,
-        private val itemClick: (item: Result) -> Unit
+        private val itemClick: (item: ResultDomain) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindView(movie: Result) {
+        fun bindView(movie: ResultDomain) {
             binding.run {
                 val initPath = "https://image.tmdb.org/t/p/w500"
                 val popularityRate = "Pop: ${movie.popularity.toInt()}"

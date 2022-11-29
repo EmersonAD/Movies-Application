@@ -1,46 +1,42 @@
 package com.souzaemerson.mymangalist.presentation.fragment.movie.viewmodel
 
-import androidx.lifecycle.*
-import com.souzaemerson.mymangalist.data.model.movie.MovieResponse
-import com.souzaemerson.mymangalist.data.repository.movie.MovieRepository
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
+import com.souzaemerson.mymangalist.domain.usecase.GetMoviesContentUseCase
+import com.souzaemerson.state.State
+import com.souzaemerson.state.State.Companion.error
+import com.souzaemerson.state.State.Companion.loading
+import com.souzaemerson.state.State.Companion.success
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeViewModel(
-    private val repository: MovieRepository,
-    private val ioDispatcher: CoroutineDispatcher,
+    private val getMovies: GetMoviesContentUseCase,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _response = MutableLiveData<com.souzaemerson.state.State<MovieResponse>>()
-    val response: LiveData<com.souzaemerson.state.State<MovieResponse>> = _response
+    private val _response = MutableLiveData<State<List<ResultDomain>>>()
+    val response: LiveData<State<List<ResultDomain>>> = _response
 
-    fun getPopularMovies(apikey: String, language: String, page: Int) {
+    fun getPopularMovies(page: Int) {
         viewModelScope.launch {
             try {
-                _response.value = com.souzaemerson.state.State.loading(true)
+                _response.value = loading(true)
 
-                val response = withContext(ioDispatcher) {
-                    repository.getPopularMovies(apikey, language, page)
+                withContext(ioDispatcher) {
+                    getMovies(page)
+                }.let { movies ->
+                    _response.value = loading(false)
+                    _response.value = success(movies)
                 }
-                _response.value = com.souzaemerson.state.State.loading(false)
-                _response.value = com.souzaemerson.state.State.success(response)
             } catch (throwable: Throwable) {
-                _response.value = com.souzaemerson.state.State.error(throwable)
-                _response.value = com.souzaemerson.state.State.loading(false)
+                _response.value = error(throwable)
+                _response.value = loading(false)
             }
-        }
-    }
-
-    class HomeViewModelProviderFactory(
-        private val repository: MovieRepository,
-        private val ioDispatcher: CoroutineDispatcher
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-                return HomeViewModel(repository, ioDispatcher) as T
-            }
-            throw IllegalArgumentException("Unknown viewModel Class")
         }
     }
 }
