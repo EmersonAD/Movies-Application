@@ -25,7 +25,9 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         movie = arguments?.getSerializable(KEY_MOVIE) as ResultDomain
+
         binding.run {
             detailsMovieImage.load("https://image.tmdb.org/t/p/original/${movie.poster_path}")
             detailsMovieTitle.text = movie.title
