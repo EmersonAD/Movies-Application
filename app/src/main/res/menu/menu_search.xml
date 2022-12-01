@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/order_by"
-        android:title="Order by"/>
+        android:id="@+id/search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="ifRoom"/>
 </menu>

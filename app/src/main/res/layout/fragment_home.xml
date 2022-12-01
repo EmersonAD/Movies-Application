@@ -8,6 +8,13 @@
     android:background="#0d253f"
     tools:context=".presentation.fragment.movie.HomeFragment">
 
+    <include
+        android:id="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        layout="@layout/toolbar_home"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_recycler"
         android:layout_width="match_parent"
@@ -18,7 +25,7 @@
         app:layout_constraintBottom_toTopOf="@id/progress_loading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:listitem="@layout/item_manga" />
 
     <ProgressBar

@@ -5,4 +5,5 @@
     <string name="movies">Movies</string>
     <string name="rank">Pop: $$</string>
     <string name="logo_toolbar">Logo toolbar</string>
+    <string name="search">Search</string>
 </resources>

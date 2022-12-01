@@ -16,7 +16,7 @@ class GetMoviesContentUseCaseImpl(private val repository: MovieRepository) :
         return if (movieResponse.code() == 200) {
             movieResponse.body()?.let {
                 return TransformResultIntoDomain(it.results)
-            } ?: throw Exception("Empty body in response")
+            } ?: throw Exception("Response body cannot be null")
         } else {
             Log.e("Response in movie api: ", "${movieResponse.code()} - ${movieResponse.errorBody()}")
             emptyList()

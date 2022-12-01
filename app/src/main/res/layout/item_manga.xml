@@ -9,7 +9,7 @@
     app:strokeColor="#01b4e4"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
-    android:layout_marginStart="4dp"
+    android:layout_marginStart="6dp"
     app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +53,8 @@
             android:gravity="center"
             android:maxLines="1"
             android:ellipsize="end"
+            android:textColor="@color/black"
+            android:padding="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
