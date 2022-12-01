@@ -80,6 +80,7 @@ dependencies {
     testImplementation "com.google.truth:truth:1.0.1"
 
     implementation project (':core')
+    implementation project (':ui')
 
 // Instrumented Unit Tests
     androidTestImplementation "junit:junit:4.13.2"
