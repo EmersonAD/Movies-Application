@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.souzaemerson.mymangalist.R
 import com.souzaemerson.mymangalist.const.KEY_MOVIE
 import com.souzaemerson.mymangalist.data.network.retrofit.RetrofitService

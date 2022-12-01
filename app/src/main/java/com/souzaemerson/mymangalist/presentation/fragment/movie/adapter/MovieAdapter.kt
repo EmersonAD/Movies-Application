@@ -34,7 +34,6 @@ class MovieAdapter(
             binding.run {
                 val initPath = "https://image.tmdb.org/t/p/w500"
                 val popularityRate = "Pop: ${movie.popularity.toInt()}"
-                itemTvTitle.text = movie.title
                 itemReleaseDate.text = popularityRate
                 itemImage.load(initPath.plus(movie.poster_path))
             }

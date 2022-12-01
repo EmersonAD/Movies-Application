@@ -3,7 +3,6 @@ package com.souzaemerson.mymangalist.data.network.retrofit
 import com.google.gson.GsonBuilder
 import com.souzaemerson.mymangalist.const.BASE_URL
 import com.souzaemerson.mymangalist.data.network.Service
-import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
