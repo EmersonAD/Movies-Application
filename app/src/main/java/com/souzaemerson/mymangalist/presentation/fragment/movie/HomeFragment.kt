@@ -20,6 +20,7 @@ import com.souzaemerson.mymangalist.domain.usecase.GetMoviesContentUseCase
 import com.souzaemerson.mymangalist.domain.usecase.GetMoviesContentUseCaseImpl
 import com.souzaemerson.mymangalist.presentation.fragment.movie.adapter.MovieAdapter
 import com.souzaemerson.mymangalist.presentation.fragment.movie.viewmodel.HomeViewModel
+import com.souzaemerson.state.State
 import com.souzaemerson.state.status.Status
 import com.souzaemerson.ui.recyclerview.EndlessRecycler
 import kotlinx.coroutines.Dispatchers
@@ -72,9 +73,19 @@ class HomeFragment : Fragment() {
                         mAdapter.notifyDataSetChanged()
                     }
                 }
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    setProgressBar(it)
+                }
                 Status.ERROR -> {}
             }
+        }
+    }
+
+    private fun setProgressBar(it: State<List<ResultDomain>>) {
+        if (it.loading == true) {
+            binding.progressLoading.visibility = View.VISIBLE
+        } else {
+            binding.progressLoading.visibility = View.GONE
         }
     }
 
