@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
 
     private val domainList = mutableListOf<ResultDomain>()
     private var isSearch = false
+    private var isMenuAlreadyExists = false
     private var actualPagination: Int = 1
 
     override fun onCreateView(
@@ -123,9 +124,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        (activity as HomeActivity).setSupportActionBar(binding.toolbar.themoviedbToolbar)
-        (activity as HomeActivity).title = null
-        setMenu()
+        with(activity as HomeActivity) {
+            setSupportActionBar(binding.toolbar.themoviedbToolbar)
+            title = null
+            if (!isMenuAlreadyExists){
+                setMenu()
+            }
+        }
     }
 
     private fun setMenu() {
@@ -133,6 +138,7 @@ class HomeFragment : Fragment() {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.menu_search, menu)
                 setSearchView(menu)
+                isMenuAlreadyExists = true
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -163,7 +169,7 @@ class HomeFragment : Fragment() {
             if (isSearch) {
                 getPopularMovies()
             }
-            return@setOnCloseListener true
+            return@setOnCloseListener false
         }
     }
 
