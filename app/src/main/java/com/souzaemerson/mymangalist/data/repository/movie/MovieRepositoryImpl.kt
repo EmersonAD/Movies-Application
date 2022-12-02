@@ -2,6 +2,7 @@ package com.souzaemerson.mymangalist.data.repository.movie
 
 import com.souzaemerson.mymangalist.data.model.movie.MovieResponse
 import com.souzaemerson.mymangalist.data.network.Service
+import com.souzaemerson.mymangalist.domain.repository.MovieRepository
 import retrofit2.Response
 
 class MovieRepositoryImpl(private val api: Service) : MovieRepository {

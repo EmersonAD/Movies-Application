@@ -1,4 +1,4 @@
-package com.souzaemerson.mymangalist.data.repository.movie
+package com.souzaemerson.mymangalist.domain.repository
 
 import com.souzaemerson.mymangalist.data.model.movie.MovieResponse
 import retrofit2.Response

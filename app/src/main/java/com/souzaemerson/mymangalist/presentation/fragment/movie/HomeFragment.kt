@@ -2,22 +2,27 @@ package com.souzaemerson.mymangalist.presentation.fragment.movie
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.souzaemerson.mymangalist.R
+import com.souzaemerson.mymangalist.const.API_KEY
 import com.souzaemerson.mymangalist.const.KEY_MOVIE
 import com.souzaemerson.mymangalist.data.network.retrofit.RetrofitService
-import com.souzaemerson.mymangalist.data.repository.movie.MovieRepository
 import com.souzaemerson.mymangalist.data.repository.movie.MovieRepositoryImpl
+import com.souzaemerson.mymangalist.data.repository.movie.SearchMovieRepositoryImpl
 import com.souzaemerson.mymangalist.databinding.FragmentHomeBinding
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
-import com.souzaemerson.mymangalist.domain.usecase.GetMoviesContentUseCase
-import com.souzaemerson.mymangalist.domain.usecase.GetMoviesContentUseCaseImpl
+import com.souzaemerson.mymangalist.domain.repository.MovieRepository
+import com.souzaemerson.mymangalist.domain.repository.SearchMovieRepository
+import com.souzaemerson.mymangalist.domain.usecase.getmovie.GetMoviesContentUseCase
+import com.souzaemerson.mymangalist.domain.usecase.getmovie.GetMoviesContentUseCaseImpl
+import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCase
+import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCaseImpl
 import com.souzaemerson.mymangalist.presentation.fragment.movie.adapter.MovieAdapter
 import com.souzaemerson.mymangalist.presentation.fragment.movie.viewmodel.HomeViewModel
 import com.souzaemerson.state.State
@@ -30,7 +35,9 @@ class HomeFragment : Fragment() {
     private lateinit var mAdapter: MovieAdapter
 
     private lateinit var repository: MovieRepository
-    private lateinit var useCase: GetMoviesContentUseCase
+    private lateinit var repositorySearch: SearchMovieRepository
+    private lateinit var useCaseGetMovies: GetMoviesContentUseCase
+    private lateinit var useCaseSearchMovie: SearchForMoviesUseCase
     private lateinit var viewModel: HomeViewModel
 
     private val domainList = mutableListOf<ResultDomain>()
@@ -47,10 +54,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        repository = MovieRepositoryImpl(RetrofitService.service)
-        useCase = GetMoviesContentUseCaseImpl(repository)
-        viewModel = HomeViewModel(useCase, Dispatchers.IO)
 
+        repository = MovieRepositoryImpl(RetrofitService.service)
+        repositorySearch = SearchMovieRepositoryImpl(RetrofitService.service)
+        useCaseGetMovies = GetMoviesContentUseCaseImpl(repository)
+        useCaseSearchMovie = SearchForMoviesUseCaseImpl(repositorySearch)
+        viewModel = HomeViewModel(useCaseGetMovies, useCaseSearchMovie, Dispatchers.IO)
+
+        setMenu()
         getPopularMovies()
         setRecyclerView()
         observeVMEvents()
@@ -58,7 +69,13 @@ class HomeFragment : Fragment() {
 
     private fun getPopularMovies(page: Int = 1) {
         lifecycleScope.launchWhenResumed {
-            viewModel.getPopularMovies(page)
+            viewModel.getPopularMovies(page, API_KEY)
+        }
+    }
+
+    private fun searchMovies(movieName: String) {
+        lifecycleScope.launchWhenResumed {
+            viewModel.searchForMovie(movieName, API_KEY)
         }
     }
 
@@ -79,6 +96,53 @@ class HomeFragment : Fragment() {
                 Status.ERROR -> {}
             }
         }
+        viewModel.search.observe(viewLifecycleOwner) {
+            if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@observe
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.let { response ->
+                        domainList.clear()
+                        domainList.addAll(response)
+                        mAdapter.notifyDataSetChanged()
+                    }
+                }
+                Status.LOADING -> {}
+                Status.ERROR -> {}
+            }
+        }
+    }
+
+    private fun setMenu() {
+        activity?.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_search, menu)
+                setSearchView(menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return false
+            }
+
+        })
+    }
+
+    private fun setSearchView(menu: Menu) {
+        val search = menu.findItem(R.id.search)
+        val searchView = search.actionView as SearchView
+        searchView.queryHint = "Search for movies"
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (query.isNullOrEmpty()){
+                        searchMovies(query ?: "")
+                    }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
     }
 
     private fun setProgressBar(it: State<List<ResultDomain>>) {

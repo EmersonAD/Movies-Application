@@ -1,17 +1,16 @@
-package com.souzaemerson.mymangalist.domain.usecase
+package com.souzaemerson.mymangalist.domain.usecase.getmovie
 
 import android.util.Log
-import com.souzaemerson.mymangalist.const.API_KEY
 import com.souzaemerson.mymangalist.const.LANGUAGE
-import com.souzaemerson.mymangalist.data.repository.movie.MovieRepository
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 import com.souzaemerson.mymangalist.domain.mapper.TransformResultIntoDomain
+import com.souzaemerson.mymangalist.domain.repository.MovieRepository
 
 class GetMoviesContentUseCaseImpl(private val repository: MovieRepository) :
     GetMoviesContentUseCase {
-    override suspend fun invoke(page: Int): List<ResultDomain> {
+    override suspend fun invoke(page: Int, apikey: String): List<ResultDomain> {
 
-        val movieResponse = repository.getPopularMovies(API_KEY, LANGUAGE, page)
+        val movieResponse = repository.getPopularMovies(apikey, LANGUAGE, page)
 
         return if (movieResponse.code() == 200) {
             movieResponse.body()?.let {

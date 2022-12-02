@@ -13,4 +13,12 @@ interface Service {
         @Query("language") language: String,
         @Query("page") page: Int
     ): Response<MovieResponse>
+
+    @GET("movie/popular")
+    suspend fun searchForMovies(
+        @Query("api_key") api_key: String,
+        @Query("language") language: String,
+        @Query("page") page: Int,
+        @Query("query") query: String
+    ): Response<MovieResponse>
 }
