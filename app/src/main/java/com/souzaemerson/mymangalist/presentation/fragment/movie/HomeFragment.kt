@@ -23,11 +23,13 @@ import com.souzaemerson.mymangalist.domain.usecase.getmovie.GetMoviesContentUseC
 import com.souzaemerson.mymangalist.domain.usecase.getmovie.GetMoviesContentUseCaseImpl
 import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCase
 import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCaseImpl
+import com.souzaemerson.mymangalist.presentation.activity.HomeActivity
 import com.souzaemerson.mymangalist.presentation.fragment.movie.adapter.MovieAdapter
 import com.souzaemerson.mymangalist.presentation.fragment.movie.viewmodel.HomeViewModel
 import com.souzaemerson.state.State
 import com.souzaemerson.state.status.Status
 import com.souzaemerson.ui.recyclerview.EndlessRecycler
+import com.souzaemerson.ui.searchview.SearchViewQueryListener
 import kotlinx.coroutines.Dispatchers
 
 class HomeFragment : Fragment() {
@@ -41,6 +43,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
 
     private val domainList = mutableListOf<ResultDomain>()
+    private var isSearch = false
     private var actualPagination: Int = 1
 
     override fun onCreateView(
@@ -61,7 +64,7 @@ class HomeFragment : Fragment() {
         useCaseSearchMovie = SearchForMoviesUseCaseImpl(repositorySearch)
         viewModel = HomeViewModel(useCaseGetMovies, useCaseSearchMovie, Dispatchers.IO)
 
-        setMenu()
+        setupToolbar()
         getPopularMovies()
         setRecyclerView()
         observeVMEvents()
@@ -86,8 +89,12 @@ class HomeFragment : Fragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { response ->
+                        if (isSearch) {
+                            domainList.clear()
+                        }
                         domainList.addAll(response)
                         mAdapter.notifyDataSetChanged()
+                        isSearch = false
                     }
                 }
                 Status.LOADING -> {
@@ -101,15 +108,24 @@ class HomeFragment : Fragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { response ->
+                        isSearch = true
+
                         domainList.clear()
                         domainList.addAll(response)
                         mAdapter.notifyDataSetChanged()
                     }
                 }
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                }
                 Status.ERROR -> {}
             }
         }
+    }
+
+    private fun setupToolbar() {
+        (activity as HomeActivity).setSupportActionBar(binding.toolbar.themoviedbToolbar)
+        (activity as HomeActivity).title = null
+        setMenu()
     }
 
     private fun setMenu() {
@@ -122,7 +138,6 @@ class HomeFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return false
             }
-
         })
     }
 
@@ -131,18 +146,25 @@ class HomeFragment : Fragment() {
         val searchView = search.actionView as SearchView
         searchView.queryHint = "Search for movies"
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                    if (query.isNullOrEmpty()){
-                        searchMovies(query ?: "")
-                    }
-                return false
-            }
+        searchView.setOnQueryTextListener(setupTextListener)
+        onCloseSearchViewAction(searchView)
+    }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+    private val setupTextListener = SearchViewQueryListener(
+        searchOnSubmit = {
+            if (it.isNotEmpty()) {
+                searchMovies(it)
             }
-        })
+        }
+    )
+
+    private fun onCloseSearchViewAction(searchView: SearchView) {
+        searchView.setOnCloseListener {
+            if (isSearch) {
+                getPopularMovies()
+            }
+            return@setOnCloseListener true
+        }
     }
 
     private fun setProgressBar(it: State<List<ResultDomain>>) {
@@ -173,7 +195,9 @@ class HomeFragment : Fragment() {
     }
 
     private val endlessListener = EndlessRecycler {
-        actualPagination += 1
-        getPopularMovies(actualPagination)
+        if (!isSearch) {
+            actualPagination += 1
+            getPopularMovies(actualPagination)
+        }
     }
 }
