@@ -1,10 +1,10 @@
-package com.souzaemerson.mymangalist.domain.usecase.getmovie
+package com.souzaemerson.domain.usecase.getmovie
 
 import android.util.Log
 import com.souzaemerson.mymangalist.const.LANGUAGE
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 import com.souzaemerson.mymangalist.domain.mapper.TransformResultIntoDomain
-import com.souzaemerson.mymangalist.domain.repository.MovieRepository
+import com.souzaemerson.data.repository.movie.popular.MovieRepository
 
 class GetMoviesContentUseCaseImpl(private val repository: MovieRepository) :
     GetMoviesContentUseCase {

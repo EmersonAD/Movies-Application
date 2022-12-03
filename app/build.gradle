@@ -38,11 +38,12 @@ android {
 ext {
     kotlin_version = "1.4.32"
     retrofitVersion = '2.9.0'
-    googleGsonVersion = '2.8.9'
     okHttpVersion = '4.10.0'
+    googleGsonVersion = '2.8.9'
     lifecycleVersion = '2.5.1'
     coroutinesVersion = '1.4.3'
     nav_version = '2.5.3'
+    koin_android_version = "3.3.0"
 }
 
 dependencies {
@@ -50,27 +51,41 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
     // Gson
     implementation "com.google.code.gson:gson:$retrofitVersion"
+
     // Interceptor
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+
     // Architectural Components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+
     // Activity KTX for viewModels()
     implementation "androidx.activity:activity-ktx:1.6.1"
+
     // Navigation Components
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
     // Coil
     implementation("io.coil-kt:coil:2.2.2")
+
+    //Koin
+    implementation "io.insert-koin:koin-android:$koin_android_version"
+    implementation "io.insert-koin:koin-androidx-navigation:$koin_android_version"
+
     // Local Unit Tests
     implementation "androidx.test:core:1.5.0"
     testImplementation "junit:junit:4.13.2"
