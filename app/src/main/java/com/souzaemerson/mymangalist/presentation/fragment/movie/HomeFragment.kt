@@ -71,10 +71,8 @@ class HomeFragment : Fragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { response ->
-                        if (isSearch) {
-                            domainList.clear()
-                        }
-                        domainList.addAll(response)
+                        if (isSearch) domainList.clear()
+                        if (response != domainList) domainList.addAll(response)
                         mAdapter.notifyDataSetChanged()
                         isSearch = false
                     }
@@ -108,7 +106,7 @@ class HomeFragment : Fragment() {
         with(activity as HomeActivity) {
             setSupportActionBar(binding.toolbar.themoviedbToolbar)
             title = null
-            if (!isMenuAlreadyExists){
+            if (!isMenuAlreadyExists) {
                 setMenu()
             }
         }
