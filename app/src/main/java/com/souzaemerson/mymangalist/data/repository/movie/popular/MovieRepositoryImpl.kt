@@ -1,7 +1,6 @@
 package com.souzaemerson.mymangalist.data.repository.movie.popular
 
-import com.souzaemerson.data.model.movie.MovieResponse
-import com.souzaemerson.data.repository.movie.popular.MovieRepository
+import com.souzaemerson.mymangalist.data.model.movie.MovieResponse
 import com.souzaemerson.mymangalist.data.network.service.Service
 import retrofit2.Response
 

@@ -1,6 +1,6 @@
 package com.souzaemerson.mymangalist.data.network.service
 
-import com.souzaemerson.data.model.movie.MovieResponse
+import com.souzaemerson.mymangalist.data.model.movie.MovieResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

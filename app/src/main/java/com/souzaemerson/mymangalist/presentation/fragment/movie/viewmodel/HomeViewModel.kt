@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
+import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCase
 import com.souzaemerson.state.State
 import com.souzaemerson.state.State.Companion.error
 import com.souzaemerson.state.State.Companion.loading
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     private val getMovies: com.souzaemerson.domain.usecase.getmovie.GetMoviesContentUseCase,
-    private val searchMovie: com.souzaemerson.domain.usecase.search.SearchForMoviesUseCase,
+    private val searchMovie: SearchForMoviesUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.souzaemerson.domain.di.dispatcher
+package com.souzaemerson.mymangalist.domain.di.dispatcher
 
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module

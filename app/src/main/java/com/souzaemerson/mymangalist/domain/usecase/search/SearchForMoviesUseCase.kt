@@ -1,4 +1,4 @@
-package com.souzaemerson.domain.usecase.search
+package com.souzaemerson.mymangalist.domain.usecase.search
 
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 

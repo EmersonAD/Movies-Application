@@ -1,7 +1,7 @@
-package com.souzaemerson.domain.di.searchmovie
+package com.souzaemerson.mymangalist.domain.di.searchmovie
 
-import com.souzaemerson.domain.usecase.search.SearchForMoviesUseCase
-import com.souzaemerson.domain.usecase.search.SearchForMoviesUseCaseImpl
+import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCase
+import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCaseImpl
 import org.koin.dsl.module
 
 val searchForMoviesUseCaseModule = module {
