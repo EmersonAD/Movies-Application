@@ -12,17 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.souzaemerson.mymangalist.R
 import com.souzaemerson.mymangalist.const.API_KEY
 import com.souzaemerson.mymangalist.const.KEY_MOVIE
-import com.souzaemerson.mymangalist.data.network.retrofit.RetrofitService
-import com.souzaemerson.mymangalist.data.repository.movie.MovieRepositoryImpl
-import com.souzaemerson.mymangalist.data.repository.movie.SearchMovieRepositoryImpl
 import com.souzaemerson.mymangalist.databinding.FragmentHomeBinding
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
-import com.souzaemerson.mymangalist.domain.repository.MovieRepository
-import com.souzaemerson.mymangalist.domain.repository.SearchMovieRepository
-import com.souzaemerson.mymangalist.domain.usecase.getmovie.GetMoviesContentUseCase
-import com.souzaemerson.mymangalist.domain.usecase.getmovie.GetMoviesContentUseCaseImpl
-import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCase
-import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCaseImpl
 import com.souzaemerson.mymangalist.presentation.activity.HomeActivity
 import com.souzaemerson.mymangalist.presentation.fragment.movie.adapter.MovieAdapter
 import com.souzaemerson.mymangalist.presentation.fragment.movie.viewmodel.HomeViewModel
@@ -30,17 +21,13 @@ import com.souzaemerson.state.State
 import com.souzaemerson.state.status.Status
 import com.souzaemerson.ui.recyclerview.EndlessRecycler
 import com.souzaemerson.ui.searchview.SearchViewQueryListener
-import kotlinx.coroutines.Dispatchers
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mAdapter: MovieAdapter
 
-    private lateinit var repository: MovieRepository
-    private lateinit var repositorySearch: SearchMovieRepository
-    private lateinit var useCaseGetMovies: GetMoviesContentUseCase
-    private lateinit var useCaseSearchMovie: SearchForMoviesUseCase
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel by viewModel<HomeViewModel>()
 
     private val domainList = mutableListOf<ResultDomain>()
     private var isSearch = false
@@ -57,12 +44,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        repository = MovieRepositoryImpl(RetrofitService.service)
-        repositorySearch = SearchMovieRepositoryImpl(RetrofitService.service)
-        useCaseGetMovies = GetMoviesContentUseCaseImpl(repository)
-        useCaseSearchMovie = SearchForMoviesUseCaseImpl(repositorySearch)
-        viewModel = HomeViewModel(useCaseGetMovies, useCaseSearchMovie, Dispatchers.IO)
 
         setupToolbar()
         getPopularMovies()
@@ -163,7 +144,7 @@ class HomeFragment : Fragment() {
             if (isSearch) {
                 getPopularMovies()
             }
-            return@setOnCloseListener true
+            return@setOnCloseListener false
         }
     }
 

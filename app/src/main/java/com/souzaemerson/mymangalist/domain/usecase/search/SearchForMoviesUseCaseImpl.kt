@@ -1,8 +1,8 @@
-package com.souzaemerson.mymangalist.domain.usecase.search
+package com.souzaemerson.domain.usecase.search
 
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 import com.souzaemerson.mymangalist.domain.mapper.TransformResultIntoDomain
-import com.souzaemerson.mymangalist.domain.repository.SearchMovieRepository
+import com.souzaemerson.data.repository.movie.search.SearchMovieRepository
 
 class SearchForMoviesUseCaseImpl(private val repositoryImpl: SearchMovieRepository) :
     SearchForMoviesUseCase {

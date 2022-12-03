@@ -1,12 +1,12 @@
 package com.souzaemerson.mymangalist.domain.mapper
 
-import com.souzaemerson.mymangalist.data.model.movie.Result
+import com.souzaemerson.data.model.movie.Result
 import java.io.Serializable
 
 class TransformResultIntoDomain {
     companion object {
         operator fun invoke(results: List<Result>): List<ResultDomain> {
-            return results.map { result: Result ->
+            return results.map { result ->
                 ResultDomain(
                     id = result.id,
                     adult = result.adult,

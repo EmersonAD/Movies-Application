@@ -1,4 +1,4 @@
-package com.souzaemerson.mymangalist.domain.usecase.getmovie
+package com.souzaemerson.domain.usecase.getmovie
 
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 
