@@ -19,7 +19,7 @@ Movies Application
 - [Coroutines](https://developer.android.com/kotlin/coroutines) - Async Tasks
 - [Retrofit](https://square.github.io/retrofit) - REST client
 - [Koin](https://insert-koin.io/docs/reference/koin-android/get-instances) - Dependency Injection
-- [Endless Recycler] - Pagination
+- Endless RecyclerView - Pagination
 
 <div align="center">
 <p><i>Developed by <a href="https://www.linkedin.com/in/emerson-s-souza/">Emerson Soares</i></p>
