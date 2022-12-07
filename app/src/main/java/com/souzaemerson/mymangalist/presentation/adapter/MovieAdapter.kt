@@ -1,10 +1,10 @@
-package com.souzaemerson.mymangalist.presentation.fragment.movie.adapter
+package com.souzaemerson.mymangalist.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.souzaemerson.mymangalist.databinding.ItemMangaBinding
+import com.souzaemerson.mymangalist.databinding.MovieItemBinding
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 
 class MovieAdapter(
@@ -14,7 +14,7 @@ class MovieAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context)
-        val binding = ItemMangaBinding.inflate(view, parent, false)
+        val binding = MovieItemBinding.inflate(view, parent, false)
         return MyViewHolder(binding, itemClick)
     }
 
@@ -26,7 +26,7 @@ class MovieAdapter(
     override fun getItemCount(): Int = moviesList.size
 
     class MyViewHolder(
-        private val binding: ItemMangaBinding,
+        private val binding: MovieItemBinding,
         private val itemClick: (item: ResultDomain) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {

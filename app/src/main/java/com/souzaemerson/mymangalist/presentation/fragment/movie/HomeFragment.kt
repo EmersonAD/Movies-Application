@@ -10,12 +10,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.souzaemerson.mymangalist.R
-import com.souzaemerson.mymangalist.const.API_KEY
+import com.souzaemerson.const.API_KEY
 import com.souzaemerson.mymangalist.const.KEY_MOVIE
 import com.souzaemerson.mymangalist.databinding.FragmentHomeBinding
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 import com.souzaemerson.mymangalist.presentation.activity.HomeActivity
-import com.souzaemerson.mymangalist.presentation.fragment.movie.adapter.MovieAdapter
+import com.souzaemerson.mymangalist.presentation.adapter.MovieAdapter
 import com.souzaemerson.mymangalist.presentation.fragment.movie.viewmodel.HomeViewModel
 import com.souzaemerson.state.State
 import com.souzaemerson.state.status.Status

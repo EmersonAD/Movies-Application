@@ -6,5 +6,15 @@
             android:id="@+id/homeFragment"
             android:icon="@drawable/ic_baseline_local_movies_24"
             android:title="@string/movies" />
+
+        <item
+            android:id="@+id/upcomingFragment"
+            android:icon="@drawable/ic_baseline_upcoming_24"
+            android:title="@string/upcoming"/>
+
+        <item
+            android:id="@+id/bottomMenu"
+            android:icon="@drawable/ic_menu"
+            android:title="@string/menu"/>
     </group>
 </menu>
