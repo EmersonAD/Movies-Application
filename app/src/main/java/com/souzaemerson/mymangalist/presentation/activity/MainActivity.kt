@@ -7,15 +7,20 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.souzaemerson.mymangalist.R
+import com.souzaemerson.mymangalist.databinding.ActivityMainBinding
 
-class HomeActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val bottomNavigation = findViewById<BottomNavigationView>(R.id.home_bottom_navigation)
+        val bottomNavigation = binding.homeBottomNavigation
+
+        val nasHost = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

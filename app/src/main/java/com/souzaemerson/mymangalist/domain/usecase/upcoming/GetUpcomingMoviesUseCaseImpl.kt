@@ -10,13 +10,13 @@ class GetUpcomingMoviesUseCaseImpl(private val repository: UpcomingMoviesReposit
     GetUpcomingMoviesUseCase {
     override suspend fun invoke(apikey: String, language: String, page: Int): List<UpcomingDomain> {
 
-        val resultList = repository.getUpcomingMovies(API_KEY).body()?.results
+        val resultList = repository.getUpcomingMovies(API_KEY, page = page).body()?.results
 
-        return getContentByResponseCode(resultList)
+        return getContentByResponseCode(resultList, page)
     }
 
-    private suspend fun getContentByResponseCode(resultList: List<Result>?) =
-        when (repository.getUpcomingMovies(API_KEY).code()) {
+    private suspend fun getContentByResponseCode(resultList: List<Result>?, page: Int) =
+        when (repository.getUpcomingMovies(API_KEY, page = page).code()) {
             200 -> TransformResultIntoUpcomingDomain(resultList ?: throw Exception("Response cannot be null"))
             in 400..500 -> throw Exception("HttpError")
             else -> throw Exception("No content")

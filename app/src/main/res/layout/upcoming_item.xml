@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:strokeColor="@color/teal_200"
     android:layout_margin="4dp"
-    app:strokeWidth="2dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:backgroundTint="@color/darker_gray"
+    app:strokeColor="@color/teal_200"
+    app:strokeWidth="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,21 +18,25 @@
             android:id="@+id/iv_banner_upcoming"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintWidth_percent="0.3"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_overview_upcoming"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="2dp"
-            android:src="@drawable/ic_launcher_foreground" />
+            app:layout_constraintWidth_percent="0.3" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_overview_upcoming"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:ellipsize="end"
+            android:foregroundGravity="center"
             android:maxLines="6"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/tv_release_date_upcoming"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_banner_upcoming"
@@ -43,24 +47,23 @@
             android:id="@+id/tv_release_date_upcoming"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="2dp"
-            tools:text="2019-03-10"
             android:gravity="center"
             android:textColor="@color/teal_700"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.2"
             app:layout_constraintStart_toEndOf="@id/iv_banner_upcoming"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_overview_upcoming"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            tools:text="2019-03-10" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_18plus_upcoming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/tv_overview_upcoming"
-            app:layout_constraintTop_toTopOf="@id/tv_overview_upcoming"
             android:layout_margin="2dp"
             android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/tv_overview_upcoming"
+            app:layout_constraintTop_toTopOf="@id/tv_overview_upcoming"
             app:srcCompat="@drawable/ic_baseline_18_up_rating_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

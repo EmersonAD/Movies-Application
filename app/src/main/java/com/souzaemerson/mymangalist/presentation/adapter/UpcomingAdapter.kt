@@ -1,5 +1,6 @@
 package com.souzaemerson.mymangalist.presentation.adapter
 
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class UpcomingAdapter(private val upcomingList: List<UpcomingDomain>) :
             with(binding) {
                 ivBannerUpcoming.load(initPath.plus(upcoming.image))
                 setAdultFlagVisibility(upcoming)
-                tvOverviewUpcoming.text = upcoming.overview
+                setOverviewContent(upcoming)
                 tvReleaseDateUpcoming.text = upcoming.releaseDate
             }
         }
@@ -43,6 +44,15 @@ class UpcomingAdapter(private val upcomingList: List<UpcomingDomain>) :
             } else {
                 iv18plusUpcoming.visibility = View.GONE
             }
+        }
+    }
+
+    private fun UpcomingItemBinding.setOverviewContent(upcoming: UpcomingDomain) {
+        if (upcoming.overview.isEmpty()) {
+            tvOverviewUpcoming.text = "No overview"
+            tvOverviewUpcoming.gravity = Gravity.CENTER
+        } else {
+            tvOverviewUpcoming.text = upcoming.overview
         }
     }
 

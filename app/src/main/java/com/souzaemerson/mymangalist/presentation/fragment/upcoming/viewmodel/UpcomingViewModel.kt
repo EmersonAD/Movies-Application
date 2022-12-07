@@ -19,7 +19,7 @@ class UpcomingViewModel(
     private var _upcoming = MutableLiveData<State<List<UpcomingDomain>>>()
     val upcoming: LiveData<State<List<UpcomingDomain>>> = _upcoming
 
-    fun getUpcomingMovies(apikey: String, language: String = "pt-BR", page: Int = 1) {
+    fun getUpcomingMovies(apikey: String, language: String = "pt-BR", page: Int) {
         viewModelScope.launch {
             try {
                 _upcoming.value = State.loading(true)

@@ -14,12 +14,12 @@ import com.souzaemerson.const.API_KEY
 import com.souzaemerson.mymangalist.const.KEY_MOVIE
 import com.souzaemerson.mymangalist.databinding.FragmentHomeBinding
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
-import com.souzaemerson.mymangalist.presentation.activity.HomeActivity
+import com.souzaemerson.mymangalist.presentation.activity.MainActivity
 import com.souzaemerson.mymangalist.presentation.adapter.MovieAdapter
 import com.souzaemerson.mymangalist.presentation.fragment.movie.viewmodel.HomeViewModel
 import com.souzaemerson.state.State
 import com.souzaemerson.state.status.Status
-import com.souzaemerson.ui.recyclerview.EndlessRecycler
+import com.souzaemerson.ui.recyclerview.EndlessGridRecycler
 import com.souzaemerson.ui.searchview.SearchViewQueryListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        with(activity as HomeActivity) {
+        with(activity as MainActivity) {
             setSupportActionBar(binding.toolbar.themoviedbToolbar)
             title = null
             if (!isMenuAlreadyExists) {
@@ -179,7 +179,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private val endlessListener = EndlessRecycler {
+    private val endlessListener = EndlessGridRecycler {
         if (!isSearch) {
             actualPagination += 1
             getPopularMovies(actualPagination)
