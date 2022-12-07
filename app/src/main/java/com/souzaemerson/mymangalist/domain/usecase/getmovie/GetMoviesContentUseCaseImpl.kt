@@ -1,9 +1,9 @@
 package com.souzaemerson.mymangalist.domain.usecase.getmovie
 
 import android.util.Log
-import com.souzaemerson.mymangalist.data.repository.movie.popular.MovieRepository
+import com.souzaemerson.mymangalist.domain.repository.popular.MovieRepository
 import com.souzaemerson.domain.usecase.getmovie.GetMoviesContentUseCase
-import com.souzaemerson.mymangalist.const.LANGUAGE
+import com.souzaemerson.const.LANGUAGE
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 import com.souzaemerson.mymangalist.domain.mapper.TransformResultIntoDomain
 

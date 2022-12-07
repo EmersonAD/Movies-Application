@@ -6,4 +6,6 @@
     <string name="rank">Pop: $$</string>
     <string name="logo_toolbar">Logo toolbar</string>
     <string name="search">Search</string>
+    <string name="menu">Menu</string>
+    <string name="upcoming">Upcoming</string>
 </resources>

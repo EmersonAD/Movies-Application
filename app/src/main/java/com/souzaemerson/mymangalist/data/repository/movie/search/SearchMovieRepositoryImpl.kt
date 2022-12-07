@@ -2,7 +2,7 @@ package com.souzaemerson.data.repository.movie.search
 
 import com.souzaemerson.mymangalist.data.model.movie.MovieResponse
 import com.souzaemerson.mymangalist.data.network.service.Service
-import com.souzaemerson.mymangalist.data.repository.movie.search.SearchMovieRepository
+import com.souzaemerson.mymangalist.domain.repository.search.SearchMovieRepository
 import retrofit2.Response
 
 class SearchMovieRepositoryImpl(private val apiService: Service) :

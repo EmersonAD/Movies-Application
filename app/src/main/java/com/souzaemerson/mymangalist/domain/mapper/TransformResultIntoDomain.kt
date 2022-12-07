@@ -1,6 +1,6 @@
 package com.souzaemerson.mymangalist.domain.mapper
 
-import com.souzaemerson.data.model.movie.Result
+import com.souzaemerson.mymangalist.data.model.movie.Result
 import java.io.Serializable
 
 class TransformResultIntoDomain {

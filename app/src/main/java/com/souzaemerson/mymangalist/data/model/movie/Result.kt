@@ -1,4 +1,4 @@
-package com.souzaemerson.data.model.movie
+package com.souzaemerson.mymangalist.data.model.movie
 
 import java.io.Serializable
 

@@ -1,4 +1,4 @@
-package com.souzaemerson.mymangalist.domain.di.viewmodel
+package com.souzaemerson.mymangalist.domain.di.viewmodel.home
 
 import com.souzaemerson.mymangalist.presentation.fragment.movie.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
