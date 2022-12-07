@@ -1,7 +1,7 @@
 package com.souzaemerson.mymangalist.domain.di.retrofit
 
 import com.google.gson.GsonBuilder
-import com.souzaemerson.mymangalist.const.BASE_URL
+import com.souzaemerson.const.BASE_URL
 import com.souzaemerson.mymangalist.data.network.service.Service
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

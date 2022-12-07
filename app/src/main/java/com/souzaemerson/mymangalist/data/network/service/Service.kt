@@ -21,4 +21,11 @@ interface Service {
         @Query("page") page: Int,
         @Query("query") query: String
     ): Response<MovieResponse>
+
+    @GET("movie/upcoming")
+    suspend fun getUpcomingMovies(
+        @Query("api_key") api_key: String,
+        @Query("language") language: String,
+        @Query("page") page: Int
+    ): Response<MovieResponse>
 }

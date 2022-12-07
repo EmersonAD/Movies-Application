@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activity.HomeActivity">
+    tools:context=".presentation.activity.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
@@ -20,6 +20,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
         android:background="#81C7CD"
+        app:labelVisibilityMode="auto"
         android:elevation="8dp"
         app:layout_behavior="com.souzaemerson.ui.bottomnavigation.HideBottomNavigationBehavior"
         app:menu="@menu/bottom_menu" />
