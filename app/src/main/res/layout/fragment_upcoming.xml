@@ -6,10 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0d253f"
-    tools:context=".presentation.fragment.upcoming.UpcomingFragment">
+    tools:context=".presentation.fragment.upcoming.UpcomingFragment"
+    android:orientation="vertical">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_upcoming_placeholder"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/placeholder_upcoming"/>
+            <include layout="@layout/placeholder_upcoming"/>
+            <include layout="@layout/placeholder_upcoming"/>
+            <include layout="@layout/placeholder_upcoming"/>
+            <include layout="@layout/placeholder_upcoming"/>
+            <include layout="@layout/placeholder_upcoming"/>
+            <include layout="@layout/placeholder_upcoming"/>
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_upcoming"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
