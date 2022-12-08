@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.souzaemerson.mymangalist.R
 import com.souzaemerson.mymangalist.databinding.ActivityMainBinding
 
@@ -19,8 +18,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bottomNavigation = binding.homeBottomNavigation
-
-        val nasHost = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

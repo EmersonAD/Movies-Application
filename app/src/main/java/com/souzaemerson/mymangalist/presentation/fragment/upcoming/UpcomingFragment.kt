@@ -13,7 +13,6 @@ import com.souzaemerson.mymangalist.domain.mapper.UpcomingDomain
 import com.souzaemerson.mymangalist.presentation.adapter.UpcomingAdapter
 import com.souzaemerson.mymangalist.presentation.fragment.upcoming.viewmodel.UpcomingViewModel
 import com.souzaemerson.state.status.Status
-import com.souzaemerson.ui.recyclerview.EndlessGridRecycler
 import com.souzaemerson.ui.recyclerview.EndlessLinearRecycler
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,8 +40,8 @@ class UpcomingFragment : Fragment() {
         observeVMEvents()
     }
 
-    private fun setUpcoming(){
-        if (pagination == 1){
+    private fun setUpcoming() {
+        if (pagination == 1) {
             getUpcomingMovies(pagination)
         }
     }
@@ -62,7 +61,19 @@ class UpcomingFragment : Fragment() {
                         mAdapter.notifyDataSetChanged()
                     }
                 }
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    with(binding) {
+                        if (it.loading == true) {
+                            shimmerUpcomingPlaceholder.startShimmer()
+                            rvUpcoming.visibility = View.GONE
+                            shimmerUpcomingPlaceholder.visibility = View.VISIBLE
+                        } else {
+                            shimmerUpcomingPlaceholder.visibility = View.GONE
+                            rvUpcoming.visibility = View.VISIBLE
+                            shimmerUpcomingPlaceholder.stopShimmer()
+                        }
+                    }
+                }
                 Status.ERROR -> {}
             }
         }
