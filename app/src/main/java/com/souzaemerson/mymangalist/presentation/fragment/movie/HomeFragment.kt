@@ -6,11 +6,10 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.souzaemerson.mymangalist.R
 import com.souzaemerson.const.API_KEY
+import com.souzaemerson.mymangalist.R
 import com.souzaemerson.mymangalist.const.KEY_MOVIE
 import com.souzaemerson.mymangalist.databinding.FragmentHomeBinding
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
@@ -67,37 +66,24 @@ class HomeFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun observeVMEvents() {
         viewModel.response.observe(viewLifecycleOwner) {
-            if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@observe
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.data?.let { response ->
-                        if (isSearch) domainList.clear()
-                        if (response != domainList) domainList.addAll(response)
-                        mAdapter.notifyDataSetChanged()
-                        isSearch = false
-                    }
+            if (it.status == Status.SUCCESS) {
+                it.data?.let { response ->
+                    domainList.clear()
+                    domainList.addAll(response)
+                    mAdapter.notifyDataSetChanged()
                 }
-                Status.LOADING -> {
-                    setProgressBar(it)
-                }
-                Status.ERROR -> {}
+            } else if (it.status == Status.LOADING) {
+                setProgressBar(it)
             }
         }
-        viewModel.search.observe(viewLifecycleOwner) {
-            if (viewLifecycleOwner.lifecycle.currentState != Lifecycle.State.RESUMED) return@observe
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.data?.let { response ->
-                        isSearch = true
 
-                        domainList.clear()
-                        domainList.addAll(response)
-                        mAdapter.notifyDataSetChanged()
-                    }
+        viewModel.search.observe(viewLifecycleOwner) {
+            if (it.status == Status.SUCCESS) {
+                it.data?.let { response ->
+                    domainList.clear()
+                    domainList.addAll(response)
+                    mAdapter.notifyDataSetChanged()
                 }
-                Status.LOADING -> {
-                }
-                Status.ERROR -> {}
             }
         }
     }
