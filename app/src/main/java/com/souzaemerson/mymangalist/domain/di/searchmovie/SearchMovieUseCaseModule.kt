@@ -6,6 +6,6 @@ import org.koin.dsl.module
 
 val searchForMoviesUseCaseModule = module {
     single<SearchForMoviesUseCase> {
-        SearchForMoviesUseCaseImpl(get())
+        SearchForMoviesUseCaseImpl(get(), get())
     }
 }

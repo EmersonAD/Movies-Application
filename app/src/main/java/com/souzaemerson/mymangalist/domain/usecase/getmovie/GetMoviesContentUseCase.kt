@@ -1,7 +1,7 @@
-package com.souzaemerson.domain.usecase.getmovie
+package com.souzaemerson.mymangalist.domain.usecase.getmovie
 
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 
 interface GetMoviesContentUseCase {
-    suspend operator fun invoke(page: Int = 1, apikey: String): List<ResultDomain>
+    suspend fun domains(page: Int, apikey: String, language: String): List<ResultDomain>
 }

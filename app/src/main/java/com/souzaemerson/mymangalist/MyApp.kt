@@ -6,6 +6,7 @@ import com.souzaemerson.mymangalist.domain.di.UpcomingUseCaseModule.upcomingMovi
 import com.souzaemerson.mymangalist.domain.di.dispatcher.dispatcherModule
 import com.souzaemerson.mymangalist.domain.di.getmovie.getMoviesUseCaseModule
 import com.souzaemerson.mymangalist.domain.di.getmovie.movieRepositoryModule
+import com.souzaemerson.mymangalist.domain.di.mapper.setMapperModule
 import com.souzaemerson.mymangalist.domain.di.retrofit.apiModule
 import com.souzaemerson.mymangalist.domain.di.searchmovie.searchForMoviesRepositoryModule
 import com.souzaemerson.mymangalist.domain.di.searchmovie.searchForMoviesUseCaseModule
@@ -37,6 +38,7 @@ class MyApp : Application() {
         upcomingViewModelModule,
         upcomingMoviesRepository,
         upcomingMoviesUseCase,
+        setMapperModule,
         dispatcherModule
     )
 }

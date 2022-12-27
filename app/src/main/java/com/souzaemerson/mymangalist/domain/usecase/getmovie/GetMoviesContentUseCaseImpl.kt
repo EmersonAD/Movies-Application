@@ -1,25 +1,29 @@
 package com.souzaemerson.mymangalist.domain.usecase.getmovie
 
 import android.util.Log
-import com.souzaemerson.mymangalist.domain.repository.popular.MovieRepository
-import com.souzaemerson.domain.usecase.getmovie.GetMoviesContentUseCase
-import com.souzaemerson.const.LANGUAGE
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 import com.souzaemerson.mymangalist.domain.mapper.TransformResultIntoDomain
+import com.souzaemerson.mymangalist.domain.repository.popular.MovieRepository
 
-class GetMoviesContentUseCaseImpl(private val repository: MovieRepository) :
-    GetMoviesContentUseCase {
-    override suspend fun invoke(page: Int, apikey: String): List<ResultDomain> {
+class GetMoviesContentUseCaseImpl(
+    private val repository: MovieRepository,
+    private val mapper: TransformResultIntoDomain
+) : GetMoviesContentUseCase {
+    override suspend fun domains(page: Int, apikey: String, language: String): List<ResultDomain> {
 
-        val movieResponse = repository.getPopularMovies(apikey, LANGUAGE, page)
+        repository.getPopularMovies(page = page, apikey = apikey, language = language).let { response ->
 
-        return if (movieResponse.code() == 200) {
-            movieResponse.body()?.let {
-                TransformResultIntoDomain(it.results)
-            } ?: throw Exception("Response body cannot be null")
-        } else {
-            Log.e("Response getMovie: ", "${movieResponse.code()} - ${movieResponse.errorBody()}")
-            throw IllegalArgumentException()
+            return if (response.code() == 200) {
+                response.body()?.let {
+                    mapper.transform(it.results)
+                } ?: throw Exception("Response body cannot be null")
+            } else {
+                Log.e(
+                    "Response getMovie: ",
+                    "${response.code()} - ${response.errorBody()}"
+                )
+                throw IllegalArgumentException()
+            }
         }
     }
 }

@@ -4,7 +4,8 @@ import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
 import com.souzaemerson.mymangalist.domain.mapper.TransformResultIntoDomain
 import com.souzaemerson.mymangalist.domain.repository.search.SearchMovieRepository
 
-class SearchForMoviesUseCaseImpl(private val repositoryImpl: SearchMovieRepository) :
+class SearchForMoviesUseCaseImpl(private val repositoryImpl: SearchMovieRepository,
+private val mapper: TransformResultIntoDomain) :
     SearchForMoviesUseCase {
     override suspend fun invoke(movieName: String, apikey: String): List<ResultDomain> {
 
@@ -12,7 +13,7 @@ class SearchForMoviesUseCaseImpl(private val repositoryImpl: SearchMovieReposito
 
         response.body()?.let {
             return if (response.code() == 200) {
-                TransformResultIntoDomain(it.results)
+                mapper.transform(it.results)
             } else {
                 throw IllegalArgumentException("Search Movie Response: ${response.code()} - ${response.errorBody()}")
             }

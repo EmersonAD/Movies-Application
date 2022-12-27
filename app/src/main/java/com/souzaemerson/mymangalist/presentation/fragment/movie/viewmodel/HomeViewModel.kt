@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.souzaemerson.const.LANGUAGE
 import com.souzaemerson.mymangalist.domain.mapper.ResultDomain
+import com.souzaemerson.mymangalist.domain.usecase.getmovie.GetMoviesContentUseCase
 import com.souzaemerson.mymangalist.domain.usecase.search.SearchForMoviesUseCase
 import com.souzaemerson.state.State
 import com.souzaemerson.state.State.Companion.error
@@ -15,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HomeViewModel(
-    private val getMovies: com.souzaemerson.domain.usecase.getmovie.GetMoviesContentUseCase,
+    private val getMovies: GetMoviesContentUseCase,
     private val searchMovie: SearchForMoviesUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -32,7 +34,7 @@ class HomeViewModel(
                 _response.value = loading(true)
 
                 withContext(ioDispatcher) {
-                    getMovies(page, apikey)
+                    getMovies.domains(page, apikey, LANGUAGE)
                 }.let { movies ->
                     _response.value = loading(false)
                     _response.value = success(movies)
