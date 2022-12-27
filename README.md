@@ -20,6 +20,7 @@ Movies Application
 - [Retrofit](https://square.github.io/retrofit) - REST client
 - [Koin](https://insert-koin.io/docs/reference/koin-android/get-instances) - Dependency Injection
 - Endless RecyclerView - Pagination
+- [TDD](https://developer.android.com/training/testing/unit-testing/local-unit-tests?hl=pt-br) - Unit test with Mockito
 
 <div align="center">
 <p><i>Developed by <a href="https://www.linkedin.com/in/emerson-s-souza/">Emerson Soares</i></p>
