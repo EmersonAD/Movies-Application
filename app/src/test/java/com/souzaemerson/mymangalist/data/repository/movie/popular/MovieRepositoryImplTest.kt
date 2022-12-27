@@ -30,7 +30,7 @@ class MovieRepositoryImplTest {
         `when`(apiMock.getPopularMovies("", "", 1)).thenReturn(expected200)
 
         //Act
-        val result = movieRepository.getPopularMovies("", "")
+        val result = movieRepository.getPopularMovies("", "", 1)
 
         //Assert
         Truth.assertThat(result).isEqualTo(expected200)
@@ -45,7 +45,7 @@ class MovieRepositoryImplTest {
         `when`(apiMock.getPopularMovies("", "", 1)).thenReturn(expectedError)
 
         //Act
-        val result = movieRepository.getPopularMovies("", "")
+        val result = movieRepository.getPopularMovies("", "", 1)
 
         //Assert
         Truth.assertThat(result).isEqualTo(expectedError)
@@ -58,7 +58,7 @@ class MovieRepositoryImplTest {
         `when`(apiMock.getPopularMovies("", "", 1)).thenThrow(exceptionExpected)
 
         //Act
-        val result = movieRepository.getPopularMovies("", "")
+        val result = movieRepository.getPopularMovies("", "", 1)
 
         //Assert
         Truth.assertThat(result).isEqualTo(exceptionExpected)
