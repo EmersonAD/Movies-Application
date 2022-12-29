@@ -18,6 +18,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.*
+import org.mockito.exceptions.base.MockitoException
 
 @ExperimentalCoroutinesApi
 class HomeViewModelTest {
@@ -32,7 +33,8 @@ class HomeViewModelTest {
 
     private val subject = HomeViewModel(getMoviesUseCase, searchMovieUseCase, ioDispatcher)
 
-    private val responseLiveData = mock(Observer::class.java) as Observer<State<List<ResultDomain>>>
+    private val responseObserver = mock(Observer::class.java) as Observer<State<List<ResultDomain>>>
+    private val searchObserver = mock(Observer::class.java) as Observer<State<List<ResultDomain>>>
 
     @Before
     fun setUp() {
@@ -45,37 +47,64 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `should livedata change correctly when useCase is called`() = runTest {
+    fun `should livedata change correctly when popularUseCase is called`() = runTest {
         //Arrange
-        subject.response.observeForever(responseLiveData)
-
-        `when`(getMoviesUseCase.domains(1, "", LANGUAGE)).thenReturn(listDomain)
+        subject.response.observeForever(responseObserver)
+        `when`(getMoviesUseCase.domains(1, "", LANGUAGE)).thenReturn(domainList)
 
         //Act
         subject.getPopularMovies(1, "")
 
         //Assert
-        verify(responseLiveData).onChanged(State.loading(true))
-        verify(responseLiveData).onChanged(State.success(listDomain))
-        verify(responseLiveData).onChanged(State.loading(false))
+        verify(responseObserver).onChanged(State.loading(true))
+        verify(responseObserver).onChanged(State.success(domainList))
+        verify(responseObserver).onChanged(State.loading(false))
     }
 
-    @Test(expected = Exception::class)
-    fun `should livedata change correctly when useCase is`() = runTest {
+    @Test(expected = MockitoException::class)
+    fun `should return an exception when popularUseCase is called`() = runTest {
         //Arrange
-        val exception = Exception()
-        subject.response.observeForever(responseLiveData)
+        subject.response.observeForever(responseObserver)
         `when`(getMoviesUseCase.domains(1, "", LANGUAGE)).thenThrow(exception)
 
         //Act
         subject.getPopularMovies(1, "")
 
         //Assert
-        verify(responseLiveData).onChanged(State.loading(true))
-        verify(responseLiveData).onChanged(State.error(exception))
-        verify(responseLiveData).onChanged(State.loading(false))
+        verify(responseObserver).onChanged(State.loading(true))
+        verify(responseObserver).onChanged(State.error(exception))
+        verify(responseObserver).onChanged(State.loading(false))
     }
 
+    @Test
+    fun `should return an list of result domain when searchUseCase is called`() = runTest{
+        //Arrange
+        subject.search.observeForever(searchObserver)
+        `when`(searchMovieUseCase.invoke("", "")).thenReturn(domainList)
+
+        //Act
+        subject.searchForMovie("", "")
+
+        //Assert
+        verify(searchObserver).onChanged(State.loading(true))
+        verify(searchObserver).onChanged(State.success(domainList))
+        verify(searchObserver).onChanged(State.loading(false))
+    }
+
+    @Test(expected = MockitoException::class)
+    fun `should throw an exception when searchUseCase is called`() = runTest{
+        //Arrange
+        subject.search.observeForever(searchObserver)
+        `when`(searchMovieUseCase.invoke("", "")).thenThrow(exception)
+
+        //Act
+        subject.searchForMovie("", "")
+
+        //Assert
+        verify(searchObserver).onChanged(State.loading(true))
+        verify(searchObserver).onChanged(State.error(exception))
+        verify(searchObserver).onChanged(State.loading(false))
+    }
 
     private val resultDomain = ResultDomain(
         id = 1,
@@ -89,6 +118,7 @@ class HomeViewModelTest {
         popularity = 0.0
     )
 
-    private val listDomain = listOf(resultDomain)
+    private val domainList = listOf(resultDomain)
 
+    private val exception = Exception()
 }
