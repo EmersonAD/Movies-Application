@@ -10,4 +10,6 @@
     <color name="placeholder_shimmer">#DDDDDD</color>
     <color name="transparent">#22000000</color>
     <color name="darker_gray">#081727</color>
+    <color name="weak_gray">#B6B6B6</color>
+    <color name="main_background">#0d253f</color>
 </resources>

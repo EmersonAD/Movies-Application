@@ -8,4 +8,10 @@
     <string name="search">Search</string>
     <string name="menu">Menu</string>
     <string name="upcoming">Upcoming</string>
+    <string name="no_overview">O filme selecionado não possui descrição no momento.</string>
+    <string name="no_overview_upcoming">"No overview"</string>
+    <string name="original_title">"Titulo original: %s"</string>
+    <string name="release_date">Lançamento: %s</string>
+    <string name="description">Resumo</string>
+    <string name="popularidade">POPULARIDADE</string>
 </resources>

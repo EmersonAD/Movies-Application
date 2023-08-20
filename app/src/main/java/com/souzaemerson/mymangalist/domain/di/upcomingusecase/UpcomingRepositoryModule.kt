@@ -1,4 +1,4 @@
-package com.souzaemerson.mymangalist.domain.di.UpcomingUseCaseModule
+package com.souzaemerson.mymangalist.domain.di.upcomingusecase
 
 import com.souzaemerson.mymangalist.data.repository.movie.upcoming.UpcomingMoviesRepositoryImpl
 import com.souzaemerson.mymangalist.domain.repository.upcoming.UpcomingMoviesRepository

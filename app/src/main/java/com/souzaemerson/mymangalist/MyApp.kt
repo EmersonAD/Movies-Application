@@ -1,8 +1,8 @@
 package com.souzaemerson.mymangalist
 
 import android.app.Application
-import com.souzaemerson.mymangalist.domain.di.UpcomingUseCaseModule.upcomingMoviesRepository
-import com.souzaemerson.mymangalist.domain.di.UpcomingUseCaseModule.upcomingMoviesUseCase
+import com.souzaemerson.mymangalist.domain.di.upcomingusecase.upcomingMoviesRepository
+import com.souzaemerson.mymangalist.domain.di.upcomingusecase.upcomingMoviesUseCase
 import com.souzaemerson.mymangalist.domain.di.dispatcher.dispatcherModule
 import com.souzaemerson.mymangalist.domain.di.getmovie.getMoviesUseCaseModule
 import com.souzaemerson.mymangalist.domain.di.getmovie.movieRepositoryModule

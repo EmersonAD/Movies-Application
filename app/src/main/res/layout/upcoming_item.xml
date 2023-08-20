@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/container_upcoming"
+    android:visibility="visible"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -60,7 +63,7 @@
             tools:text="2019-03-10" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_18plus_upcoming"
+            android:id="@+id/iv_18_rating_upcoming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"

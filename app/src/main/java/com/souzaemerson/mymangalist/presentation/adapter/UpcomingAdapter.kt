@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.souzaemerson.mymangalist.R
 import com.souzaemerson.mymangalist.databinding.UpcomingItemBinding
 import com.souzaemerson.mymangalist.domain.mapper.UpcomingDomain
 
@@ -25,34 +26,33 @@ class UpcomingAdapter(private val upcomingList: List<UpcomingDomain>) :
 
     override fun getItemCount(): Int = upcomingList.count()
 
-    inner class UpcomingViewHolder(private val binding: UpcomingItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class UpcomingViewHolder(private val binding: UpcomingItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindView(upcoming: UpcomingDomain) {
             with(binding) {
-                ivBannerUpcoming.load(initPath.plus(upcoming.image))
-                setAdultFlagVisibility(upcoming)
-                setOverviewContent(upcoming)
-                tvReleaseDateUpcoming.text = upcoming.releaseDate
-            }
-        }
-
-        private fun UpcomingItemBinding.setAdultFlagVisibility(
-            upcoming: UpcomingDomain
-        ) {
-            if (upcoming.adult) {
-                iv18plusUpcoming.visibility = View.VISIBLE
-            } else {
-                iv18plusUpcoming.visibility = View.GONE
+                    ivBannerUpcoming.load(initPath.plus(upcoming.image))
+                    setAdultFlagVisibility(upcoming)
+                    setOverviewContent(upcoming)
+                    tvReleaseDateUpcoming.text = upcoming.releaseDate
             }
         }
     }
 
     private fun UpcomingItemBinding.setOverviewContent(upcoming: UpcomingDomain) {
-        if (upcoming.overview.isEmpty()) {
-            tvOverviewUpcoming.text = "No overview"
-            tvOverviewUpcoming.gravity = Gravity.CENTER
-        } else {
+        if (upcoming.overview.isNotEmpty()) {
             tvOverviewUpcoming.text = upcoming.overview
+        } else {
+            tvOverviewUpcoming.gravity = Gravity.CENTER
+            tvOverviewUpcoming.setText(R.string.no_overview_upcoming)
+        }
+    }
+
+    private fun UpcomingItemBinding.setAdultFlagVisibility(
+        upcoming: UpcomingDomain
+    ) {
+        if (upcoming.adult) {
+            iv18RatingUpcoming.visibility = View.VISIBLE
+        } else {
+            iv18RatingUpcoming.visibility = View.GONE
         }
     }
 
